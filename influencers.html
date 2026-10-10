@@ -1,0 +1,1983 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantry Chef</title>
+    <meta name="description"
+        content="Pantry Chef te ayuda a preparar comidas saludables con lo que ya tienes en casa. Sin planificación, sin complicaciones.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png"
+        href="logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary-brown: #3E2723;
+            --primary-orange: #E65100;
+            --orange-hover: #BF360C;
+            --text-main: #3E2723;
+            --text-muted: rgba(62, 39, 35, 0.7);
+            --bg-light: #FDFBF7;
+            --bg-neutral: #F5F5F0;
+            --white: #FFFFFF;
+            --border-light: #EFEBE9;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Manrope', sans-serif;
+            --container-max-width: 1200px;
+            --header-height: 81px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: var(--font-body);
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-orange);
+            color: var(--white);
+            padding: 8px 24px;
+            box-shadow: 0 10px 15px -3px rgba(230, 81, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--orange-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-large {
+            padding: 24px 32px;
+            font-size: 16px;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-brown);
+            color: var(--primary-brown);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(62, 39, 35, 0.05);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--header-height);
+            backdrop-filter: blur(24px);
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-brown);
+        }
+
+        .logo img {
+            height: 48px;
+        }
+
+
+        /* Hero Section */
+        .hero {
+            padding-top: calc(var(--header-height) + 100px);
+            padding-bottom: 150px;
+            background-color: var(--bg-light);
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-content .badge {
+            background-color: #F8EDEB;
+            color: var(--primary-orange);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 24px;
+        }
+
+        .hero-content .badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-orange);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            line-height: 72px;
+            letter-spacing: -1.8px;
+            color: var(--primary-brown);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-orange);
+            font-style: italic;
+            display: block;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .scroll-indicator i {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-5px);
+            }
+
+            60% {
+                transform: translateY(-3px);
+            }
+        }
+
+        /* Section Common */
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 64px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            line-height: 48px;
+            margin-bottom: 24px;
+            color: var(--primary-brown);
+        }
+
+        .section-header p {
+            font-size: 18px;
+            line-height: 28px;
+            color: #000;
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 0;
+            background-color: var(--white);
+        }
+
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 5rem;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-pill {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            background: var(--white);
+            padding: 1.25rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .stat-pill i {
+            color: var(--primary-orange);
+            background: rgba(230, 81, 0, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .stat-text span {
+            display: block;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--primary-brown);
+        }
+
+        .stat-text p {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .about-content h4 {
+            color: var(--primary-orange);
+            background: rgba(230, 81, 0, 0.1);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            font-family: var(--font-body);
+        }
+
+        .about-content h2 {
+            font-size: 48px;
+            line-height: 48px;
+            margin-bottom: 32px;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            line-height: 28px;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+
+        .about-content b {
+            color: var(--primary-brown);
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--primary-orange);
+            font-weight: 700;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 120px 0;
+            background-color: var(--bg-neutral);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+        }
+
+        .value-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(230, 81, 0, 0.1);
+            color: var(--primary-orange);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .value-card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--primary-brown);
+            font-family: var(--font-heading);
+        }
+
+        .value-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 24px;
+        }
+
+        /* Product Section */
+        .product {
+            padding: 120px 0;
+            background-color: var(--white);
+        }
+
+        .product-feature {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 6rem;
+            margin-bottom: 120px;
+        }
+
+        .product-feature.reverse {
+            direction: rtl;
+        }
+
+        .product-feature.reverse .feature-content {
+            direction: ltr;
+        }
+
+        .feature-image img {
+            border-radius: 32px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .feature-badge {
+            background: rgba(230, 81, 0, 0.1);
+            color: var(--primary-orange);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-content h2 {
+            font-size: 40px;
+            line-height: 40px;
+            margin-bottom: 24px;
+        }
+
+        .feature-content p {
+            font-size: 18px;
+            line-height: 28px;
+            color: var(--text-muted);
+        }
+
+        .feature-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 40px;
+        }
+
+        .summary-item {
+            background: var(--bg-neutral);
+            padding: 24px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .summary-item i {
+            color: var(--primary-orange);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .summary-item p {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+  /* --- NUEVA SECCIÓN: INFLUENCERS --- */
+        .influencers {
+            padding: 120px 0;
+            background-color: var(--bg-neutral);
+        }
+
+        .influencers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 40px;
+        }
+
+        .influencer-card {
+            background: var(--white);
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .influencer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .influencer-img-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .influencer-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+        }
+
+        .influencer-body {
+            padding: 40px;
+        }
+
+        .influencer-body h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--primary-brown);
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .influencer-body p {
+            color: #000;
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 24px;
+            text-align: justify;
+        }
+
+        .influencer-quote {
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-orange);
+            font-style: italic;
+            color: var(--primary-brown);
+            margin-top: 20px;
+            text-align: justify;
+        }
+
+        /* Download Section */
+        .download-wrapper {
+            padding: 80px 0;
+        }
+
+        .download {
+            background: radial-gradient(circle at 71% 25%, #4E342E 0%, #3E2723 100%);
+            color: var(--white);
+            border-radius: 40px;
+            padding: 100px 80px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            overflow: hidden;
+        }
+
+        .download h2 {
+            font-size: 64px;
+            line-height: 64px;
+            margin-bottom: 24px;
+        }
+
+        .download h2 span {
+            color: var(--primary-orange);
+        }
+
+        .download p {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .download-btns {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .store-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 12px 28px;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .store-btn.apple {
+            background: var(--white);
+            color: var(--primary-brown);
+        }
+
+        .store-btn.google {
+            background: var(--primary-orange);
+            color: var(--white);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: var(--bg-neutral);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .newsletter p {
+            font-size: 18px;
+            color: #000;
+            margin-bottom: 48px;
+        }
+
+        .newsletter-form {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 9999px;
+            border: 1px solid var(--border-light);
+            font-family: var(--font-body);
+            font-size: 16px;
+            outline: none;
+        }
+
+        .btn-dark {
+            background: var(--primary-brown);
+            color: var(--white);
+            padding: 16px 32px;
+        }
+
+       /* Footer */
+        footer {
+            background: var(--primary-brown);
+            color: var(--white);
+            padding: 30px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 30px;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            font-size: 15px;
+            line-height: 24px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 24px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        .footer-col ul li a:hover {
+            opacity: 1;
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+
+        /* Animations */
+        .revealed {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 56px;
+                line-height: 56px;
+            }
+
+            .download h2 {
+                font-size: 48px;
+                line-height: 48px;
+            }
+
+            .download {
+                padding: 60px 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 2rem;
+            }
+
+            .hero .container,
+            .about .container,
+            .download,
+            .product-feature {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 4rem;
+            }
+
+            .hero-content,
+            .about-content,
+            .download-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-image,
+            .about-image {
+                order: -1;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            html, body { overflow-x: hidden; max-width: 100vw; }
+
+            .hero h1 {
+                font-size: clamp(30px, 9vw, 40px);
+                line-height: 1.15;
+                word-wrap: break-word;
+            }
+            .hero p {
+                font-size: 17px;
+                line-height: 1.6;
+                text-align: center;
+            }
+
+            .hero-btns,
+            .download-btns {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .values-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+        }
+
+        /* --- MODAL RECETAS --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            will-change: opacity;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: var(--bg-light);
+            width: 95%;
+            max-width: 1100px;
+            max-height: 85vh;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.96) translateY(10px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.33s ease-out;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+            display: block;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.2);
+            will-change: transform, opacity;
+            -webkit-overflow-scrolling: touch;
+            transform: translateZ(0);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 60px 60px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            background: var(--white);
+            position: relative;
+        }
+
+        .modal-header h2 {
+            font-size: 45px;
+            color: var(--primary-brown);
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .modal-header .sub-title {
+            font-style: italic;
+            color: var(--primary-orange);
+            font-size: 22px;
+            margin-bottom: 24px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+        }
+
+        .modal-header p {
+            font-size: 17px;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--bg-neutral);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-orange);
+            color: var(--white);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 0 60px 60px;
+        }
+
+        .modal-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-container::-webkit-scrollbar-button {
+            display: none;
+        }
+
+        .modal-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-container::-webkit-scrollbar-thumb {
+            background: #D7CCC8;
+            border-radius: 4px;
+        }
+
+        .modal-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-orange);
+        }
+
+        .recipes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .recipe-item {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 60px;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        #modal-roro.modal-overlay.active .recipe-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .recipe-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .recipe-item:nth-child(even) .recipe-info {
+            direction: ltr;
+        }
+
+        .recipe-img {
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            aspect-ratio: 4/3;
+        }
+
+        .recipe-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .recipe-item:hover .recipe-img img {
+            transform: scale(1.08);
+        }
+
+        .recipe-info h3 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: var(--primary-brown);
+            line-height: 1.2;
+        }
+
+        .recipe-detail {
+            margin-bottom: 20px;
+        }
+
+        .recipe-detail b {
+            color: var(--primary-orange);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .recipe-detail p {
+            font-size: 17px;
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .recipe-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(230, 81, 0, 0.1);
+            color: var(--primary-orange);
+            padding: 8px 18px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        /* --- NUEVOS ESTILOS DETALLE RECETA --- */
+        .recipe-meta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .meta-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-neutral);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        .recipe-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .ingredients-section h4, .steps-section h4 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: var(--primary-brown);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ingredients-list {
+            background: #F9F7F2;
+            padding: 24px;
+            border-radius: 20px;
+            list-style: none;
+        }
+
+        .ingredients-list li {
+            font-size: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .ingredients-list li:last-child {
+            border-bottom: none;
+        }
+
+        .ingredients-list li::before {
+            content: '•';
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .ingredients-list li::before {
+            content: '•';
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        /* --- RESPONSIVE INFLUENCERS & MODALS --- */
+        @media (max-width: 992px) {
+            .influencers-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .influencer-img-container {
+                height: 320px;
+            }
+        }
+
+        @media (max-width: 950px) {
+            .recipe-inner-body {
+                grid-template-areas: 
+                    "recipe-img-sidebar"
+                    "recipe-main-info"
+                    "steps-section";
+                grid-template-columns: 1fr;
+                padding: 24px;
+                gap: 24px;
+            }
+            
+            .steps-list {
+                column-count: 1 !important;
+            }
+
+            .modal-header h2 {
+                font-size: 34px;
+                line-height:1.2;
+            }
+            
+            .modal-header {
+                padding: 50px 24px 30px;
+            }
+            
+            .modal-body {
+                padding: 0 10px 40px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .influencer-body {
+                padding: 30px 20px;
+            }
+            
+            .influencer-body h3 {
+                font-size: 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 28px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .modal-close {
+                top: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .recipe-trigger {
+                padding: 20px !important;
+            }
+
+            .recipe-trigger-left {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .recipe-trigger-left .meta-pill {
+                margin-left: auto;
+                margin-right: 10px;
+            }
+
+            .recipe-trigger-left h3 {
+                font-size: 18px;
+            }
+        }
+        /* --- NUEVOS ESTILOS ACORDEÓN --- */
+        .recipes-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .recipe-accordion-item {
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--white);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .recipe-accordion-item.active {
+            border-color: var(--primary-orange);
+            box-shadow: 0 10px 30px rgba(230, 81, 0, 0.08);
+        }
+
+        .recipe-trigger {
+            width: 100%;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            gap: 20px;
+        }
+
+        .recipe-trigger-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .recipe-trigger-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .recipe-trigger h3 {
+            font-size: 20px;
+            margin: 0;
+            color: var(--primary-brown);
+            transition: color 0.3s ease;
+        }
+
+        .recipe-accordion-item.active .recipe-trigger h3 {
+            color: var(--primary-orange);
+        }
+
+        .recipe-status-icon {
+            color: var(--text-muted);
+            transition: transform 0.4s ease;
+        }
+
+        .recipe-accordion-item.active .recipe-status-icon {
+            transform: rotate(180deg);
+            color: var(--primary-orange);
+        }
+
+        .recipe-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .recipe-accordion-item.active .recipe-content {
+            max-height: 2000px; /* Suficiente para el contenido */
+        }
+
+        .recipe-inner-body {
+            padding: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 
+                "recipe-img-sidebar recipe-main-info"
+                "steps-section steps-section";
+            column-gap: 40px;
+            row-gap: 12px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .recipe-img-sidebar {
+            grid-area: recipe-img-sidebar;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .recipe-img-sidebar img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .recipe-main-info {
+            grid-area: recipe-main-info;
+            text-align: left;
+        }
+
+        .steps-section {
+            grid-area: steps-section;
+            margin-top: 0;
+            padding-top: 20px;
+            text-align: left;
+        }
+
+        .recipe-meta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .steps-list {
+            column-count: 2;
+            column-gap: 40px;
+            list-style: none;
+            counter-reset: recipe-counter;
+            text-align: justify;
+        }
+
+        .steps-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-main);
+            break-inside: avoid-column;
+        }
+
+        .steps-list li::before {
+            counter-increment: recipe-counter;
+            content: counter(recipe-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 34px;
+            height: 34px;
+            background: var(--primary-brown);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 950px) {
+            .recipe-inner-body {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "recipe-img-sidebar"
+                    "recipe-main-info"
+                    "steps-section";
+                padding: 24px;
+            }
+            .steps-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* --- MOBILE NAV --- */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-brown);
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        @media (max-width: 992px) {
+            .mobile-nav-toggle {
+                display: none; /* We use the global .menu-toggle instead */
+            }
+
+            .desktop-only {
+                display: none !important;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .mobile-only {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Pantry Chef Logo"> Pantry Chef
+            </a>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="influencers.html">Cede el delantal</a></li>
+                    <li><a href="https://mardellop.github.io/Pantry-Chef/" target="_blank" rel="noopener">App Pantry Chef</a></li>
+                    <li><a href="https://lp.constantcontactpages.com/ev/reg/zha446j" target="_blank" rel="noopener">Nuestros eventos</a></li>
+                    <li><a href="blog.html">Pantry Blog</a></li>
+                </ul>
+            </nav>
+            <div class="header-right" style="display:flex; align-items:center; gap:1rem;">
+                <a href="demo.html" class="btn btn-primary" style="background: transparent; border: 2px solid var(--primary-orange); color: var(--primary-orange); box-shadow: none;">Probar demo</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- NUEVA SECCIÓN: INFLUENCERS -->
+        <section id="influencers" class="influencers">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Entra en la cocina de tus influencers favoritos</h2>
+                    <p>Es la solución perfecta para comer bien sin complicaciones.</p>
+                </div>
+
+                <div class="influencers-grid">
+                    <!-- Influencer 1 -->
+                    <div class="influencer-card">
+                        <div class="influencer-img-container">
+                            <img src="pollo_roro_1775301507833.jpg" alt="Influencer Cooking" onerror="this.src='https://placehold.co/600x400?text=Menu+Influencer'">
+                        </div>
+                        <div class="influencer-body" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                            <h3>Hemos seleccionado las 5 recetas para que no tengas que pensar el menú</h3>
+                            <p>Sabemos que lo más difícil de la cocina no es encender el fogón, sino decidir qué vas a poner en el plato. Estas 5 recetas te salvarán.</p>
+                            <button id="btn-ver-recetas" class="btn btn-outline" style="width: auto; padding: 10px 20px;">Ver recetas</button>
+                        </div>
+                    </div>
+
+                    <!-- Influencer 2 -->
+                    <div class="influencer-card">
+                        <div class="influencer-img-container">
+                            <img src="glowup_bowl_boukie_1775309391928.jpg" alt="Influencer Dinner" onerror="this.src='https://placehold.co/600x400?text=Cena+Rapida'">
+                        </div>
+                        <div class="influencer-body" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                            <h3>La cena rápida para días cansados</h3>
+                            <p>Todos tenemos esos días en los que estamos cansados. Descubre ese plato infalible que te salvará las noches.</p>
+                            <div class="influencer-quote">
+                                “Esta receta es especial para mí porque en menos de 10 minutos tengo la cena lista”.
+                            </div>
+                            <button id="btn-ver-receta-boukie" class="btn btn-outline" style="width: auto; padding: 10px 20px; margin-top: 24px;">Ver receta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Footer -->
+        <footer id="contacto">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <a href="#inicio" class="logo">
+                            <img src="logo.png" alt="Pantry Chef Logo">
+                            Pantry Chef
+                        </a>
+                        <p>Cocinando un futuro más saludable y sostenible para todos.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Nuestros servicios</h4>
+                        <ul>
+                            <li><a href="#">Recetas personalizadas</a></li>
+                            <li><a href="#">Comunidad Pantry Chef</a></li>
+                            <li><a href="#">Lista de compra inteligente</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Nuestra empresa</h4>
+                        <ul>
+                        <li><a href="#nosotros">Sobre nosotros</a></li>
+                            <li><a href="#">Nuestros valores</a></li>
+                            <li><a href="#">Pantry Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Contacto</h4>
+                        <ul>
+                            <li><a href="#">Sevilla, España</a></li>
+                            <li><a href="#">pantrychefmarketing@gmail.com</a></li>
+                            <li><a href="#">+34 123 45 67 89</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Pantry Chef. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Modal de Recetas de Roro -->
+    <div id="modal-roro" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" id="close-modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <h2>Pack exclusivo</h2>
+                <div class="sub-title">"Estas recetas te van a salvar la semana"</div>
+            </div>
+            <div class="modal-body">
+                <div class="recipes-accordion">
+                    <!-- Receta 1 -->
+                    <div class="recipe-accordion-item">
+                        <button class="recipe-trigger">
+                            <div class="recipe-trigger-left">
+                                <h3>1. Tallarines</h3>
+                                <div class="meta-pill" style="margin-bottom:0;"><i data-lucide="clock" style="width:12px;"></i> 20 min</div>
+                            </div>
+                            <i data-lucide="chevron-down" class="recipe-status-icon"></i>
+                        </button>
+                        <div class="recipe-content">
+                            <div class="recipe-inner-body">
+                                <div class="recipe-img-sidebar">
+                                    <img src="tallarines_roro_1775301278760.jpg" alt="Tallarines" loading="lazy" decoding="async">
+                                </div>
+                                <div class="recipe-main-info">
+                                    <div class="recipe-meta-group">
+                                        <div class="meta-pill"><i data-lucide="bar-chart-2" style="width:14px;"></i> Baja</div>
+                                        <div class="meta-pill"><i data-lucide="users" style="width:14px;"></i> 2 Raciones</div>
+                                    </div>
+                                    <div class="ingredients-section">
+                                        <h4>Ingredientes</h4>
+                                        <ul class="ingredients-list">
+                                            <li>250g de tallarines.</li>
+                                            <li>60g de mantequilla.</li>
+                                            <li>10 hojas de salvia.</li>
+                                            <li>Ralladura y jugo de limón.</li>
+                                            <li>Parmesano, sal y pimienta.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="steps-section">
+                                    <h4>Pasos para la preparación</h4>
+                                    <ul class="steps-list">
+                                        <li>Hierve la pasta al dente y reserva una taza del agua de cocción.</li>
+                                        <li>En una sartén, funde la mantequilla a fuego medio hasta que empiece a espumar y adquiera un color avellana.</li>
+                                        <li>Añade las hojas de salvia y deja que se vuelvan crujientes.</li>
+                                        <li>Incorpora la pasta directamente a la sartén junto con un chorrito de limón y un poco del agua de cocción.</li>
+                                        <li>Mantén el fuego bajo y remueve con energía para crear una emulsión.</li>
+                                        <li>Sirve con parmesano recién rallado.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 2 -->
+                    <div class="recipe-accordion-item">
+                        <button class="recipe-trigger">
+                            <div class="recipe-trigger-left">
+                                <h3>2. El sándwich de focaccia</h3>
+                                <div class="meta-pill" style="margin-bottom:0;"><i data-lucide="clock" style="width:12px;"></i> 15 min</div>
+                            </div>
+                            <i data-lucide="chevron-down" class="recipe-status-icon"></i>
+                        </button>
+                        <div class="recipe-content">
+                            <div class="recipe-inner-body">
+                                <div class="recipe-img-sidebar">
+                                    <img src="focaccia_roro_1775301429588.jpg" alt="Focaccia" loading="lazy" decoding="async">
+                                </div>
+                                <div class="recipe-main-info">
+                                    <div class="recipe-meta-group">
+                                        <div class="meta-pill"><i data-lucide="bar-chart-2" style="width:14px;"></i> Muy Baja</div>
+                                        <div class="meta-pill"><i data-lucide="users" style="width:14px;"></i> 1 Ración</div>
+                                    </div>
+                                    <div class="ingredients-section">
+                                        <h4>Ingredientes</h4>
+                                        <ul class="ingredients-list">
+                                            <li>1 trozo de focaccia artesana.</li>
+                                            <li>100g de mortadela de Bolonia fina.</li>
+                                            <li>1 bola de burrata.</li>
+                                            <li>2 cucharadas de pesto de pistacho.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="steps-section">
+                                    <h4>Pasos para la preparación</h4>
+                                    <ul class="steps-list">
+                                        <li>Tuesta ligeramente el interior de la focaccia en una sartén.</li>
+                                        <li>Extiende el pesto de pistacho en la base de la focaccia.</li>
+                                        <li>Coloca la mortadela de forma "voluminosa" creando ondas para mayor textura.</li>
+                                        <li>Abre la burrata encima y extiéndela con delicadeza.</li>
+                                        <li>Presiona ligeramente y disfruta al momento.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 3 --> 
+                    <div class="recipe-accordion-item">
+                        <button class="recipe-trigger">
+                            <div class="recipe-trigger-left">
+                                <h3>3. Risotto de setas y trufa</h3>
+                                <div class="meta-pill" style="margin-bottom:0;"><i data-lucide="clock" style="width:12px;"></i> 35 min</div>
+                            </div>
+                            <i data-lucide="chevron-down" class="recipe-status-icon"></i>
+                        </button>
+                        <div class="recipe-content">
+                            <div class="recipe-inner-body">
+                                <div class="recipe-img-sidebar">
+                                    <img src="risotto_roro_1775301451580.jpg" alt="Risotto" loading="lazy" decoding="async">
+                                </div>
+                                <div class="recipe-main-info">
+                                    <div class="recipe-meta-group">
+                                        <div class="meta-pill"><i data-lucide="bar-chart-2" style="width:14px;"></i> Media</div>
+                                        <div class="meta-pill"><i data-lucide="users" style="width:14px;"></i> 2 Raciones</div>
+                                    </div>
+                                    <div class="ingredients-section">
+                                        <h4>Ingredientes</h4>
+                                        <ul class="ingredients-list">
+                                            <li>Arroz Carnaroli (200g).</li>
+                                            <li>Setas variadas (300g).</li>
+                                            <li>Caldo de verdura y vino blanco.</li>
+                                            <li>Aceite de trufa para el final.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="steps-section">
+                                    <h4>Pasos para la preparación</h4>
+                                    <ul class="steps-list">
+                                        <li>Saltea las setas hasta dorar y reserva.</li>
+                                        <li>En la misma olla pocha chalota, añade el arroz y nacara.</li>
+                                        <li>Añade vino y luego el caldo cacito a cacito removiendo constantemente.</li>
+                                        <li>Reincorpora las setas a mitad de cocción.</li>
+                                        <li>Apaga el fuego, añade mantequilla fría y parmesano. Remueve con energía.</li>
+                                        <li>Sirve con unas gotas de aceite de trufa.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 4 -->
+                    <div class="recipe-accordion-item">
+                        <button class="recipe-trigger">
+                            <div class="recipe-trigger-left">
+                                <h3>4. Pollo marinado en hierbas y miel</h3>
+                                <div class="meta-pill" style="margin-bottom:0;"><i data-lucide="clock" style="width:12px;"></i> 50 min</div>
+                            </div>
+                            <i data-lucide="chevron-down" class="recipe-status-icon"></i>
+                        </button>
+                        <div class="recipe-content">
+                            <div class="recipe-inner-body">
+                                <div class="recipe-img-sidebar">
+                                    <img src="pollo_roro_1775301507833.jpg" alt="Pollo" loading="lazy" decoding="async">
+                                </div>
+                                <div class="recipe-main-info">
+                                    <div class="recipe-meta-group">
+                                        <div class="meta-pill"><i data-lucide="bar-chart-2" style="width:14px;"></i> Baja</div>
+                                        <div class="meta-pill"><i data-lucide="users" style="width:14px;"></i> 2-3 Raciones</div>
+                                    </div>
+                                    <div class="ingredients-section">
+                                        <h4>Ingredientes</h4>
+                                        <ul class="ingredients-list">
+                                            <li>4 contramuslos de pollo.</li>
+                                            <li>2 cdas de miel y 1 de mostaza.</li>
+                                            <li>Patatas panadera y espárragos.</li>
+                                            <li>Romero y tomillo frescos.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="steps-section">
+                                    <h4>Pasos para la preparación</h4>
+                                    <ul class="steps-list">
+                                        <li>Mezcla la miel, mostaza y hierbas. Marina el pollo 15 min.</li>
+                                        <li>Coloca patatas en rodajas finas en la bandeja con sal y aceite.</li>
+                                        <li>Coloca el pollo sobre patatas y hornea a 200°C por 35 min.</li>
+                                        <li>Acompaña con espárragos los últimos 15 minutos.</li>
+                                        <li>Sube el grill al final para una piel extra crujiente.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receta 5 -->
+                    <div class="recipe-accordion-item">
+                        <button class="recipe-trigger">
+                            <div class="recipe-trigger-left">
+                                <h3>5. Tarta de queso</h3>
+                                <div class="meta-pill" style="margin-bottom:0;"><i data-lucide="clock" style="width:12px;"></i> 40 min</div>
+                            </div>
+                            <i data-lucide="chevron-down" class="recipe-status-icon"></i>
+                        </button>
+                        <div class="recipe-content">
+                            <div class="recipe-inner-body">
+                                <div class="recipe-img-sidebar">
+                                    <img src="tarta_queso_roro_1775301535840.jpg" alt="Tarta" loading="lazy" decoding="async">
+                                </div>
+                                <div class="recipe-main-info">
+                                    <div class="recipe-meta-group">
+                                        <div class="meta-pill"><i data-lucide="bar-chart-2" style="width:14px;"></i> Media</div>
+                                        <div class="meta-pill"><i data-lucide="users" style="width:14px;"></i> 4-6 Raciones</div>
+                                    </div>
+                                    <div class="ingredients-section">
+                                        <h4>Ingredientes</h4>
+                                        <ul class="ingredients-list">
+                                            <li>500g queso crema.</li>
+                                            <li>3 huevos y 200ml de nata (35% M.G.).</li>
+                                            <li>150g de azúcar y 1 cda de harina.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="steps-section">
+                                    <h4>Pasos para la preparación</h4>
+                                    <ul class="steps-list">
+                                        <li>Mezcla el queso crema con el azúcar hasta que no haya grumos.</li>
+                                        <li>Añade huevos uno a uno e incorpora nata y harina tamizada.</li>
+                                        <li>Vierte en molde forrado y hornea 30 min a 210°C.</li>
+                                        <li>La clave es el reposo: al menos 4 horas antes de desmoldar.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL BOUKIE -->
+    <div id="modal-boukie" class="modal-overlay">
+        <div class="modal-container">
+            <button id="close-modal-boukie" class="modal-close">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <h2>El Bowl que se prepara en 8 minutos</h2>
+                <div class="sub-title">"Fresco, saciante y con ese toque crunchy"</div>
+                <p>Es perfecto para cuando el hambre aprieta y el tiempo escasea.</p>
+            </div>
+            <div class="modal-body">
+                <div class="recipe-inner-body" style="border-top: none;">
+                    <div class="recipe-img-sidebar">
+                        <img src="glowup_bowl_boukie_1775309391928.jpg" alt="Glow-up Bowl" loading="lazy" decoding="async">
+                    </div>
+                    <div class="recipe-main-info">
+                        <div class="recipe-meta-group">
+                            <div class="meta-pill"><i data-lucide="clock" style="width:14px;"></i> 8 min</div>
+                            <div class="meta-pill"><i data-lucide="bar-chart-2" style="width:14px;"></i> Muy Fácil</div>
+                            <div class="meta-pill"><i data-lucide="users" style="width:14px;"></i> 1 Ración</div>
+                        </div>
+                        <div class="ingredients-section">
+                            <h4>Ingredientes</h4>
+                            <ul class="ingredients-list">
+                                <li>Una bolsa de brotes tiernos o canónigos (lavados, por favor).</li>
+                                <li>Una lata de atún claro de calidad o unos garbanzos de bote.</li>
+                                <li><b>El toque perfecto:</b> 1/2 aguacate.</li>
+                                <li>Una tostada de pan de masa madre o un vasito de quinoa.</li>
+                                <li>Semillas de cáñamo o sésamo y un toque de chile seco (opcional).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="steps-section">
+                        <h4>Paso a paso</h4>
+                        <ul class="steps-list">
+                            <li>En un bol, coloca la base de verdes. No escatimes, queremos volumen.</li>
+                            <li>Añade la lata de atún en el centro. Si usas aguacate, córtalo en láminas finas y ábrelo en abanico.</li>
+                            <li>Mezcla aceite de oliva virgen extra, zumo de medio limón y una cucharadita de mostaza antigua. Agita y vierte.</li>
+                            <li>Espolvorea las semillas y el chile. Si quieres, acompaña con el pan tostado.</li>
+                        </ul>
+                    </div>
+                    <div class="influencer-quote" style="grid-column: span 2; margin-top: 40px; background: #F9F7F2; padding: 30px; border-radius: 20px;">
+                        <h4 style="margin-bottom: 15px; color: var(--primary-brown);">¿Por qué esta receta?</h4>
+                        <p style="font-size: 18px; line-height: 1.6; color: var(--primary-brown); font-style: italic;">
+                            "La verdad es que lo que más me gusta de este plato no es solo que se tarda nada en hacer, sino que te hace sentir bien. Es como un abrazo nutricional después de un día de locos, sin tener que recurrir a pedir comida a domicilio."
+                        </p>
+                        <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(0,0,0,0.1);">
+                        <p style="font-size: 15px; color: var(--primary-orange); font-weight: 700;">
+                            💡 TIP EXTRA: Si te sientes con un pelín más de energía, añade un huevo poché (3 minutos en agua hirviendo) y verás cómo el plato sube de nivel automáticamente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+
+            // Counter Animation
+            const counter = document.getElementById('counter');
+            if (counter) {
+                const target = 10000;
+                let count = 0;
+                const duration = 2000;
+                const startTime = performance.now();
+                const updateCount = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                    count = easeProgress * target;
+                    counter.innerText = '+' + Math.floor(count).toLocaleString();
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = '+' + target.toLocaleString();
+                    }
+                };
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        requestAnimationFrame(updateCount);
+                        observer.unobserve(entries[0].target);
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(counter);
+            }
+            // Reveal on Scroll
+            const revealElements = document.querySelectorAll('section > .container, .value-card, .product-feature');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            revealElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(40px)';
+                el.style.transition = 'all 1s cubic-bezier(0.2, 1, 0.3, 1)';
+                revealObserver.observe(el);
+            });
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 81;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // --- LÓGICA MODAL RORO ---
+            const modalRoro = document.getElementById('modal-roro');
+            const btnVerRecetas = document.getElementById('btn-ver-recetas');
+            const closeModal = document.getElementById('close-modal');
+
+            if (btnVerRecetas && modalRoro) {
+                btnVerRecetas.addEventListener('click', () => {
+                    modalRoro.style.display = 'flex';
+                    // Usar requestAnimationFrame para asegurar que el navegador ha procesado el cambio de display
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            modalRoro.classList.add('active');
+                            document.body.style.overflow = 'hidden'; 
+                        });
+                    });
+                });
+            }
+
+            if (closeModal && modalRoro) {
+                closeModal.addEventListener('click', () => {
+                    modalRoro.classList.remove('active');
+                    setTimeout(() => {
+                        modalRoro.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 400); // Mismo tiempo que la transición
+                });
+
+                // Cerrar al clickear fuera
+                modalRoro.addEventListener('click', (e) => {
+                    if (e.target === modalRoro) {
+                        closeModal.click();
+                    }
+                });
+            }
+            
+            // --- LÓGICA MODAL BOUKIE ---
+            const modalBoukie = document.getElementById('modal-boukie');
+            const btnVerRecetaBoukie = document.getElementById('btn-ver-receta-boukie');
+            const closeModalBoukie = document.getElementById('close-modal-boukie');
+
+            if (btnVerRecetaBoukie && modalBoukie) {
+                btnVerRecetaBoukie.addEventListener('click', () => {
+                    modalBoukie.style.display = 'flex';
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            modalBoukie.classList.add('active');
+                            document.body.style.overflow = 'hidden'; 
+                        });
+                    });
+                });
+            }
+
+            if (closeModalBoukie && modalBoukie) {
+                closeModalBoukie.addEventListener('click', () => {
+                    modalBoukie.classList.remove('active');
+                    setTimeout(() => {
+                        modalBoukie.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 400); 
+                });
+
+                modalBoukie.addEventListener('click', (e) => {
+                    if (e.target === modalBoukie) {
+                        closeModalBoukie.click();
+                    }
+                });
+            }
+
+            // --- LÓGICA ACORDEÓN ---
+            const accordionItems = document.querySelectorAll('.recipe-accordion-item');
+            accordionItems.forEach(item => {
+                const trigger = item.querySelector('.recipe-trigger');
+                trigger.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Cerrar otros
+                    accordionItems.forEach(i => i.classList.remove('active'));
+                    
+                    // Abrir si no estaba activo
+                    if (!isActive) {
+                        item.classList.add('active');
+                        
+                        // Hacer scroll suave hacia el inicio del item abierto
+                        setTimeout(() => {
+                            item.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'start', 
+                                inline: 'nearest' 
+                            });
+                        }, 300); // Pequeño delay para que la animación de apertura esté en marcha
+                    }
+                });
+            });
+        });
+        
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mainNav.classList.toggle('active');
+                document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close menu when clicking on a link
+            const navLinks = mainNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mainNav.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
